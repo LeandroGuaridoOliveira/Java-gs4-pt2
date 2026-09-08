@@ -11,7 +11,7 @@ PROFESSOR: Dr. Marcel Stefan Wagner
 IDE UTILIZADA: IntelliJ IDEA
 
 LINK DO REPOSITORIO GITHUB (PARTE 2 - SEPARADO DA PARTE 1):
-https://github.com/LeandroGuaridoOliveira/Java-gs4-parte2.git
+https://github.com/LeandroGuaridoOliveira/Java-gs4-pt2.git
 
 LINK DO DEPLOY EM PRODUCAO:
 https://mercado-express-mvc.onrender.com
