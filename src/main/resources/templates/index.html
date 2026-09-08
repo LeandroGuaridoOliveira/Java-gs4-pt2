@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado Express - Início</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container my-5 main-content">
+        <!-- Hero Banner -->
+        <div class="hero-banner p-4 p-md-5 mb-5 rounded-4 text-white">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-success mb-2 px-3 py-2 fs-6">Spring Boot MVC + Security</span>
+                    <h1 class="display-5 fw-bold mb-3">Bem-vindo ao Mercado Express</h1>
+                    <p class="lead text-light-50 mb-4">
+                        Sistema completo para gerenciamento de estoque de produtos (frutas, limpeza, meias, brinquedos e muito mais) com interface web interativa em Thymeleaf, controle de acesso por perfis e deploy em nuvem.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a th:href="@{/produtos}" class="btn btn-success btn-lg px-4 gap-2">
+                            <i class="bi bi-box-seam me-1"></i> Ver Catálogo Completo
+                        </a>
+                        <a th:href="@{/produtos/novo}" class="btn btn-outline-light btn-lg px-4 gap-2" sec:authorize="isAuthenticated()">
+                            <i class="bi bi-plus-circle me-1"></i> Cadastrar Produto
+                        </a>
+                        <a th:href="@{/login}" class="btn btn-outline-warning btn-lg px-4 gap-2" sec:authorize="isAnonymous()">
+                            <i class="bi bi-shield-lock me-1"></i> Login Administrativo
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <i class="bi bi-shop display-1 text-success opacity-75"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicadores / Métricas Rápidas -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card card-custom h-100 p-4 border-start border-4 border-success">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1 small fw-bold">Total de Produtos</h6>
+                            <h2 class="mb-0 fw-bold text-dark" th:text="${totalProdutos}">0</h2>
+                        </div>
+                        <div class="bg-success-subtle p-3 rounded-circle text-success fs-3">
+                            <i class="bi bi-boxes"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-custom h-100 p-4 border-start border-4 border-primary">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1 small fw-bold">Preço Médio</h6>
+                            <h2 class="mb-0 fw-bold text-dark" th:text="'R$ ' + ${#numbers.formatDecimal(precoMedio, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</h2>
+                        </div>
+                        <div class="bg-primary-subtle p-3 rounded-circle text-primary fs-3">
+                            <i class="bi bi-tag"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-custom h-100 p-4 border-start border-4 border-warning">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1 small fw-bold">Segurança Ativa</h6>
+                            <h5 class="mb-0 fw-bold text-dark">Spring Security 6</h5>
+                            <small class="text-muted">Rotas Públicas & Privadas</small>
+                        </div>
+                        <div class="bg-warning-subtle p-3 rounded-circle text-warning fs-3">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Explicativo de Rotas e Segurança -->
+        <div class="card card-custom mb-5 bg-white border">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold text-dark mb-3">
+                    <i class="bi bi-shield-lock-fill text-primary me-2"></i>Arquitetura de Rotas e Permissões
+                </h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 rounded bg-light border">
+                            <h6 class="fw-bold text-success"><i class="bi bi-unlock-fill me-1"></i> Rotas Públicas (Acesso Livre)</h6>
+                            <ul class="mb-0 small text-secondary">
+                                <li><strong>/</strong> : Página Inicial institucional.</li>
+                                <li><strong>/produtos</strong> : Catálogo de produtos (somente leitura).</li>
+                                <li><strong>/produtos/detalhes/{id}</strong> : Ficha técnica do produto.</li>
+                                <li><strong>/login</strong> : Tela de autenticação do operador/admin.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 rounded bg-light border">
+                            <h6 class="fw-bold text-danger"><i class="bi bi-lock-fill me-1"></i> Rotas Privadas (Exigem Autenticação)</h6>
+                            <ul class="mb-0 small text-secondary">
+                                <li><strong>/produtos/novo</strong> : Cadastro de novos itens (USER / ADMIN).</li>
+                                <li><strong>/produtos/editar/{id}</strong> : Edição de produtos (USER / ADMIN).</li>
+                                <li><strong>/produtos/excluir/{id}</strong> : Exclusão do banco de dados (Apenas ADMIN).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela Rápida de Produtos em Destaque -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="fw-bold mb-0">Produtos em Destaque</h4>
+            <a th:href="@{/produtos}" class="btn btn-outline-secondary btn-sm">Ver todos no catálogo &rarr;</a>
+        </div>
+        
+        <div class="card card-custom overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Setor</th>
+                            <th>Preço</th>
+                            <th class="text-end">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="prod : ${produtosDestaque}">
+                            <td class="fw-bold" th:text="'#' + ${prod.id}">#1</td>
+                            <td th:text="${prod.nome}">Nome do Produto</td>
+                            <td><span class="badge bg-secondary" th:text="${prod.tipo}">Tipo</span></td>
+                            <td th:text="${prod.setor}">Setor</td>
+                            <td class="fw-bold text-success" th:text="'R$ ' + ${#numbers.formatDecimal(prod.preco, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+                            <td class="text-end">
+                                <a th:href="@{/produtos/detalhes/{id}(id=${prod.id})}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i> Detalhes
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 text-success" th:href="@{/}">
+            <i class="bi bi-cart4 fs-3"></i>
+            <span class="text-white fw-bold">Mercado</span><span class="text-success">Express</span>
+            <span class="badge bg-success-subtle text-success fs-6 ms-1 border border-success">MVC</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="bi bi-house-door me-1"></i> Início
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/produtos}">
+                        <i class="bi bi-box-seam me-1"></i> Catálogo de Produtos
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/produtos/novo}">
+                        <i class="bi bi-plus-circle me-1"></i> Novo Produto
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Barra de Busca Rápida -->
+            <form class="d-flex me-lg-3 my-2 my-lg-0" th:action="@{/produtos}" method="get">
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="search" name="termo" th:value="${termo}" placeholder="Buscar produto..." aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Status de Autenticação Spring Security -->
+            <div class="d-flex align-items-center gap-2">
+                <!-- Se NÃO estiver autenticado -->
+                <div sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}" class="btn btn-outline-success btn-sm px-3">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
+                    </a>
+                </div>
+
+                <!-- Se ESTIVER autenticado -->
+                <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-2">
+                    <div class="text-light small text-end d-none d-sm-block">
+                        <div>
+                            <i class="bi bi-person-circle text-success me-1"></i>
+                            <span sec:authentication="name" class="fw-bold"></span>
+                        </div>
+                        <span class="badge bg-secondary" sec:authorize="hasRole('ADMIN')">ADMIN</span>
+                        <span class="badge bg-info text-dark" sec:authorize="hasRole('USER') and !hasRole('ADMIN')">USER</span>
+                    </div>
+
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-outline-danger btn-sm" title="Sair do sistema">
+                            <i class="bi bi-box-arrow-right me-1"></i> Sair
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

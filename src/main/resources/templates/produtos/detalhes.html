@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${produto.nome} + ' - Detalhes'">Detalhes do Produto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-5 main-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">Início</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/produtos}" class="text-decoration-none">Produtos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" th:text="${produto.nome}">Nome</li>
+                    </ol>
+                </nav>
+
+                <div class="card card-custom bg-white p-4 p-md-5">
+                    <div class="d-flex justify-content-between align-items-start border-bottom pb-4 mb-4">
+                        <div>
+                            <span class="badge bg-secondary mb-2" th:text="'Código #' + ${produto.id}">#1</span>
+                            <h2 class="fw-bold text-dark mb-1" th:text="${produto.nome}">Nome do Produto</h2>
+                            <p class="text-muted mb-0">
+                                Setor: <strong th:text="${produto.setor}">Setor</strong> | Tipo: <strong th:text="${produto.tipo}">Tipo</strong>
+                            </p>
+                        </div>
+                        <div class="text-end">
+                            <span class="text-muted small d-block">Preço Unitário</span>
+                            <span class="display-6 fw-bold text-success" th:text="'R$ ' + ${#numbers.formatDecimal(produto.preco, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
+                        </div>
+                    </div>
+
+                    <!-- Detalhes do Produto -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded bg-light border">
+                                <span class="text-muted small text-uppercase fw-bold d-block mb-1">Setor no Mercado</span>
+                                <span th:text="${produto.setor}"
+                                      th:class="${produto.setor == 'Limpeza' ? 'badge badge-setor-limpeza fs-6' : 
+                                                 (produto.setor == 'Hortifruti' or produto.setor == 'Frutas e Verduras' ? 'badge badge-setor-hortifruti fs-6' : 
+                                                 (produto.setor == 'Vestuário' or produto.setor == 'Meias e Acessórios' ? 'badge badge-setor-vestuario fs-6' : 
+                                                 (produto.setor == 'Brinquedos' ? 'badge badge-setor-brinquedos fs-6' : 'badge badge-setor-padrao fs-6')))}">
+                                    Setor
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded bg-light border">
+                                <span class="text-muted small text-uppercase fw-bold d-block mb-1">Tipo de Produto</span>
+                                <h5 class="mb-0 fw-bold text-dark" th:text="${produto.tipo}">Tipo</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded bg-light border">
+                                <span class="text-muted small text-uppercase fw-bold d-block mb-1">Tamanho / Embalagem</span>
+                                <h5 class="mb-0 fw-bold text-dark" th:text="${produto.tamanho != null and !produto.tamanho.isEmpty() ? produto.tamanho : 'Padrão / Não informado'}">1kg</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded bg-light border">
+                                <span class="text-muted small text-uppercase fw-bold d-block mb-1">Tabela no Banco</span>
+                                <code class="fs-6 text-primary">TDS_MVC_TB_MERCADO</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 border-top gap-2">
+                        <a th:href="@{/produtos}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i> Voltar ao Catálogo
+                        </a>
+
+                        <div class="d-flex gap-2">
+                            <a th:href="@{/produtos/editar/{id}(id=${produto.id})}" class="btn btn-warning">
+                                <i class="bi bi-pencil-square me-1"></i> Editar Produto
+                            </a>
+                            <button type="button" class="btn btn-danger"
+                                    th:data-id="${produto.id}"
+                                    th:data-nome="${produto.nome}"
+                                    onclick="confirmarExclusao(this.getAttribute('data-id'), this.getAttribute('data-nome'))">
+                                <i class="bi bi-trash me-1"></i> Excluir
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="modalExcluirLabel">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar Exclusão
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir o produto <strong id="nomeProdutoExcluir" class="text-danger"></strong>?</p>
+                    <p class="small text-muted mb-0">Esta ação é irreversível.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a id="linkConfirmarExcluir" href="#" class="btn btn-danger">Confirmar Exclusão</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

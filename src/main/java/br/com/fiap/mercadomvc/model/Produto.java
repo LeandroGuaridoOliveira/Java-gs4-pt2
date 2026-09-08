@@ -1,0 +1,120 @@
+package br.com.fiap.mercadomvc.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "TDS_MVC_TB_MERCADO")
+public class Produto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_MERCADO_MVC")
+    @SequenceGenerator(name = "SQ_MERCADO_MVC", sequenceName = "SQ_TDS_MVC_MERCADO", allocationSize = 1)
+    @Column(name = "ID")
+    private Long id;
+
+    @NotBlank(message = "O nome do produto é obrigatório.")
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres.")
+    @Column(name = "NOME", nullable = false, length = 100)
+    private String nome;
+
+    @NotBlank(message = "O tipo é obrigatório.")
+    @Size(max = 50, message = "O tipo deve ter até 50 caracteres.")
+    @Column(name = "TIPO", nullable = false, length = 50)
+    private String tipo;
+
+    @NotBlank(message = "O setor é obrigatório.")
+    @Size(max = 50, message = "O setor deve ter até 50 caracteres.")
+    @Column(name = "SETOR", nullable = false, length = 50)
+    private String setor;
+
+    @Size(max = 30, message = "O tamanho deve ter até 30 caracteres.")
+    @Column(name = "TAMANHO", length = 30)
+    private String tamanho;
+
+    @NotNull(message = "O preço é obrigatório.")
+    @Positive(message = "O preço deve ser maior que zero.")
+    @Column(name = "PRECO", nullable = false)
+    private Double preco;
+
+    public Produto() {
+    }
+
+    public Produto(Long id, String nome, String tipo, String setor, String tamanho, Double preco) {
+        this.id = id;
+        this.nome = nome;
+        this.tipo = tipo;
+        this.setor = setor;
+        this.tamanho = tamanho;
+        this.preco = preco;
+    }
+
+    public Produto(String nome, String tipo, String setor, String tamanho, Double preco) {
+        this(null, nome, tipo, setor, tamanho, preco);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
+    }
+
+    public String getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+}
