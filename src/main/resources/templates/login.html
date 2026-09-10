@@ -11,30 +11,26 @@
 <body class="bg-light d-flex flex-column min-vh-100 justify-content-center align-items-center p-3">
 
     <div class="card card-custom p-4 p-md-5 bg-white" style="max-width: 440px; width: 100%;">
-        <!-- Header / Marca -->
         <div class="text-center mb-4">
             <div class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success p-3 rounded-circle mb-3">
                 <i class="bi bi-cart4 fs-1"></i>
             </div>
             <h3 class="fw-bold mb-1">Mercado <span class="text-success">Express</span></h3>
-            <p class="text-muted small mb-0">Autenticação Segura Spring Security</p>
+            <p class="text-muted small mb-0">Autenticação de Usuários</p>
         </div>
 
-        <!-- Alerta de Erro -->
         <div th:if="${erroMensagem}" class="alert alert-danger alert-dismissible fade show small" role="alert">
             <i class="bi bi-exclamation-triangle-fill me-1"></i>
             <span th:text="${erroMensagem}">Usuário ou senha inválidos.</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <!-- Alerta de Logout -->
         <div th:if="${sucessoMensagem}" class="alert alert-success alert-dismissible fade show small" role="alert">
             <i class="bi bi-check-circle-fill me-1"></i>
             <span th:text="${sucessoMensagem}">Desconectado com sucesso.</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <!-- Formulário de Login -->
         <form th:action="@{/login}" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label fw-bold small">Usuário</label>
@@ -61,7 +57,6 @@
             </a>
         </form>
 
-        <!-- Dica de Credenciais para Avaliação do Professor -->
         <div class="mt-4 p-3 bg-light rounded border text-center small text-muted">
             <span class="fw-bold d-block text-dark mb-1"><i class="bi bi-info-circle text-primary me-1"></i>Credenciais de Teste:</span>
             <div><strong>Admin:</strong> <code>admin</code> / <code>admin123</code> <span class="badge bg-danger">Total</span></div>

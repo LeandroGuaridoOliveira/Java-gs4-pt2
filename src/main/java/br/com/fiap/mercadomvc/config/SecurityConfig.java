@@ -20,16 +20,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                // Rotas Publicas
                 .requestMatchers("/", "/produtos", "/produtos/detalhes/**").permitAll()
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
-                // Rotas Privadas (Operacoes de escrita / modificacao do CRUD)
                 .requestMatchers("/produtos/novo", "/produtos/salvar").hasAnyRole("ADMIN", "USER")
                 .requestMatchers("/produtos/editar/**", "/produtos/atualizar/**").hasAnyRole("ADMIN", "USER")
                 .requestMatchers("/produtos/excluir/**").hasRole("ADMIN")
-                // Qualquer outra requisicao requer autenticacao
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -45,7 +42,6 @@ public class SecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .permitAll()
             )
-            // Permitir console H2 em ambiente local
             .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
             .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 

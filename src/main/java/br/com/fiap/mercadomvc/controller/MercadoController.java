@@ -29,7 +29,6 @@ public class MercadoController {
         this.produtoService = produtoService;
     }
 
-    // READ: Listagem pública com suporte a busca
     @GetMapping
     public String listar(@RequestParam(value = "termo", required = false) String termo, Model model) {
         List<Produto> lista = produtoService.buscarPorNome(termo);
@@ -39,7 +38,6 @@ public class MercadoController {
         return "produtos/lista";
     }
 
-    // READ: Detalhes do produto
     @GetMapping("/detalhes/{id}")
     public String detalhes(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Optional<Produto> produtoOpt = produtoService.buscarPorId(id);
@@ -51,7 +49,6 @@ public class MercadoController {
         return "produtos/detalhes";
     }
 
-    // CREATE: Exibir formulário de cadastro (Privado)
     @GetMapping("/novo")
     public String novoFormulario(Model model) {
         model.addAttribute("produto", new Produto());
@@ -59,7 +56,6 @@ public class MercadoController {
         return "produtos/formulario";
     }
 
-    // CREATE: Processar salvamento de novo produto (Privado)
     @PostMapping("/salvar")
     public String salvar(
             @Valid @ModelAttribute("produto") Produto produto,
@@ -75,7 +71,6 @@ public class MercadoController {
         return "redirect:/produtos";
     }
 
-    // UPDATE: Exibir formulário de edição (Privado)
     @GetMapping("/editar/{id}")
     public String editarFormulario(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Optional<Produto> produtoOpt = produtoService.buscarPorId(id);
@@ -88,7 +83,6 @@ public class MercadoController {
         return "produtos/formulario";
     }
 
-    // UPDATE: Processar atualização de produto existente (Privado)
     @PostMapping("/atualizar/{id}")
     public String atualizar(
             @PathVariable("id") Long id,
@@ -106,7 +100,6 @@ public class MercadoController {
         return "redirect:/produtos";
     }
 
-    // DELETE: Excluir produto (Privado - apenas ADMIN)
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Produto> produtoOpt = produtoService.buscarPorId(id);

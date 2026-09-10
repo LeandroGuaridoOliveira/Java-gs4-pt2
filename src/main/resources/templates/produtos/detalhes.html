@@ -11,14 +11,12 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <main class="container my-5 main-content">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
 
-                <!-- Breadcrumb -->
                 <nav aria-label="breadcrumb" class="mb-3">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">Início</a></li>
@@ -42,7 +40,6 @@
                         </div>
                     </div>
 
-                    <!-- Detalhes do Produto -->
                     <div class="row g-4 mb-4">
                         <div class="col-sm-6">
                             <div class="p-3 rounded bg-light border">
@@ -76,7 +73,6 @@
                         </div>
                     </div>
 
-                    <!-- Ações -->
                     <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 border-top gap-2">
                         <a th:href="@{/produtos}" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-1"></i> Voltar ao Catálogo
@@ -100,7 +96,6 @@
         </div>
     </main>
 
-    <!-- Modal de Confirmação de Exclusão -->
     <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -122,7 +117,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div th:replace="~{fragments/footer :: footer}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

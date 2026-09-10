@@ -11,12 +11,9 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <!-- Conteúdo Principal -->
     <main class="container my-5 main-content">
-        <!-- Hero Banner -->
         <div class="hero-banner p-4 p-md-5 mb-5 rounded-4 text-white">
             <div class="row align-items-center">
                 <div class="col-lg-8">
@@ -43,7 +40,6 @@
             </div>
         </div>
 
-        <!-- Indicadores / Métricas Rápidas -->
         <div class="row g-4 mb-5">
             <div class="col-md-4">
                 <div class="card card-custom h-100 p-4 border-start border-4 border-success">
@@ -87,7 +83,6 @@
             </div>
         </div>
 
-        <!-- Card Explicativo de Rotas e Segurança -->
         <div class="card card-custom mb-5 bg-white border">
             <div class="card-body p-4">
                 <h5 class="card-title fw-bold text-dark mb-3">
@@ -119,7 +114,6 @@
             </div>
         </div>
 
-        <!-- Tabela Rápida de Produtos em Destaque -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="fw-bold mb-0">Produtos em Destaque</h4>
             <a th:href="@{/produtos}" class="btn btn-outline-secondary btn-sm">Ver todos no catálogo &rarr;</a>
@@ -158,7 +152,6 @@
 
     </main>
 
-    <!-- Footer -->
     <div th:replace="~{fragments/footer :: footer}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

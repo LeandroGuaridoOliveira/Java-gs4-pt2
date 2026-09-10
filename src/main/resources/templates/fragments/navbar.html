@@ -34,7 +34,6 @@
                 </li>
             </ul>
 
-            <!-- Barra de Busca Rápida -->
             <form class="d-flex me-lg-3 my-2 my-lg-0" th:action="@{/produtos}" method="get">
                 <div class="input-group input-group-sm">
                     <input class="form-control" type="search" name="termo" th:value="${termo}" placeholder="Buscar produto..." aria-label="Search">
@@ -44,16 +43,13 @@
                 </div>
             </form>
 
-            <!-- Status de Autenticação Spring Security -->
             <div class="d-flex align-items-center gap-2">
-                <!-- Se NÃO estiver autenticado -->
                 <div sec:authorize="isAnonymous()">
                     <a th:href="@{/login}" class="btn btn-outline-success btn-sm px-3">
                         <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
                     </a>
                 </div>
 
-                <!-- Se ESTIVER autenticado -->
                 <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-2">
                     <div class="text-light small text-end d-none d-sm-block">
                         <div>

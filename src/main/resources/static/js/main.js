@@ -1,6 +1,4 @@
-// Interações de front-end do Mercado Express
 document.addEventListener('DOMContentLoaded', () => {
-    // Fechar automaticamente alertas após 5 segundos
     const alerts = document.querySelectorAll('.alert-dismissible');
     alerts.forEach(alert => {
         setTimeout(() => {
@@ -12,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Função para confirmar exclusão com modal dinâmico
 function confirmarExclusao(id, nome) {
     const modalElement = document.getElementById('modalExcluir');
     const nomeElement = document.getElementById('nomeProdutoExcluir');
