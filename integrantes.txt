@@ -14,7 +14,7 @@ LINK DO REPOSITORIO GITHUB (PARTE 2 - SEPARADO DA PARTE 1):
 https://github.com/LeandroGuaridoOliveira/Java-gs4-pt2.git
 
 LINK DO DEPLOY EM PRODUCAO:
-https://mercado-express-mvc.onrender.com
+https://mercado-express-mvc-90ft.onrender.com
 
 SISTEMA / PLATAFORMA UTILIZADA PARA O DEPLOY:
 Render (Web Service baseado em container Docker)
