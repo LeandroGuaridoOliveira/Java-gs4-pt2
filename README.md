@@ -25,7 +25,7 @@ Projeto desenvolvido para o Checkpoint 4 (Parte 2) da disciplina de Desenvolvime
 - Repositório da Parte 1 (API REST + HATEOAS): https://github.com/LeandroGuaridoOliveira/Java-gs4.git
 - Deploy em Produção: https://mercado-express-mvc-90ft.onrender.com
 - Plataforma de Hospedagem: Render (Web Service baseado em container Docker)
-- Vídeo de Apresentação: [Link do Vídeo no YouTube](COLOQUE_O_LINK_DO_VIDEO_AQUI)
+- Vídeo de Apresentação: [Link do Vídeo no YouTube](https://youtu.be/l_vcf0Vck1M)
 
 ---
 
